@@ -2,9 +2,9 @@
 
 ## Executive summary
 
-The seven headline findings match independent calculations from the local Olist CSVs. I also checked the SQL joins and revenue filters and found no unintended row multiplication or conflicting inclusion rule. The local SQL cleanup fixed the known CTE scope issue; a BigQuery rerun and export comparison are still pending. This QA review did not change the SQL or result CSVs.
+The seven headline findings match independent calculations from the local Olist CSVs. I checked the SQL joins and revenue filters and found no unintended row multiplication or conflicting inclusion rule. After the CTE scope cleanup, I reran the cleaned Q1-Q7 scripts in BigQuery and compared their result sets with the saved CSVs.
 
-The SQL cleanup replaced the Q4-Q7 cross-statement CTE references with temporary tables. Q5 still totals rounded seller values rather than exact merchandise revenue, and several Q4 saved values differ by one unit at `.50` boundaries. Neither difference changes the reported findings. The cleaned scripts still need a BigQuery rerun before their outputs can be called rerun-verified.
+The SQL cleanup replaced the Q4-Q7 cross-statement CTE references with temporary tables. The BigQuery rerun agreed with the saved outputs. Q5 still totals rounded seller values rather than exact merchandise revenue, and several Q4 saved values differ by one unit at `.50` boundaries. Neither difference changes the reported findings.
 
 ## Source table and key metric validation
 
@@ -53,20 +53,18 @@ Q2-Q5 consistently filter to `order_status = 'delivered'` with a non-null custom
 
 August 2018 has 8,314 eligible delivered orders and 1,141,791.54 exact merchandise revenue. September has 56 orders / 11,469.04; October has 3 orders / 275.40. The last source purchase timestamp is October 17, 2018. The sharp drop in observed volume makes September and October poor full-month comparisons. `business_questions.md`, `methodology.md`, and `findings.md` preserve this caveat for Q2 and Q4 and retain the months in detailed results.
 
-The Q2 summary CSV selects December 2016 and January 2017 as the largest **percentage** decrease and increase after excluding the partial final months. The documentation sometimes calls these the largest revenue changes without specifying percentage. By absolute amount, other months lead. Label the summary explicitly as percentage change and state its month-exclusion rule so the selection is reproducible.
+The Q2 summary CSV selects December 2016 and January 2017 as the largest **percentage** decrease and increase after excluding the partial final months. By absolute amount, other months lead. The documentation now states both the percentage basis and the month-exclusion rule.
 
 ## Reproducibility findings
 
-- **Resolved in local SQL cleanup, CTE scope:** Q4-Q7 now materialize shared intermediate rows in temporary tables, so later statements no longer reference expired CTEs. Q2 and Q3 remain single-statement queries. The cleaned scripts have not yet been executed in BigQuery; compare every result set with its saved CSV when rerunning.
+- **CTE scope resolved and rerun verified:** Q4-Q7 now materialize shared intermediate rows in temporary tables, so later statements no longer reference expired CTEs. Q2 and Q3 remain single-statement queries. The cleaned Q1-Q7 scripts were rerun in BigQuery and their result sets compared with the saved CSVs.
 - **Moderate, Q5 intermediate rounding:** See the monetary reconciliation above. This changes saved monetary totals slightly but not the concentration conclusion.
 - **Minor, Q4 `.50` rounding exceptions:** Seven saved category totals differ by one unit from decimal half-up source rounding. Confirm BigQuery type and desired rounding policy before changing SQL or CSVs.
-- **Minor, Q2 summary wording:** Clarify percentage versus absolute change and the exclusion of September/October 2018.
 
 ## Recommended changes
 
-1. Run the cleaned Q1-Q7 scripts in BigQuery and compare each result set with its saved CSV.
-2. Decide whether Q5 monetary totals should retain cents until final display; if changed, rerun and update only validated affected results.
-3. Inspect Q4 `price` type and rounding behavior before changing its seven borderline values.
+1. Decide whether Q5 monetary totals should retain cents until final display; if changed, rerun and update only validated affected results.
+2. Inspect Q4 `price` type and rounding behavior before changing its seven borderline values.
 
 ## Results consolidation
 
@@ -74,4 +72,4 @@ All 16 final derived CSVs are now directly under `results/`; no CSV content chan
 
 ## Final readiness
 
-Source and join checks support the seven findings. The local SQL fixes the CTE scope issue, and the README links the final questions and selected results. **BigQuery execution and output comparison are still pending.** The Q4 and Q5 rounding differences are documented above.
+Source and join checks support the seven findings. The cleaned Q1-Q7 scripts were rerun in BigQuery and compared with the saved CSVs. The README links the final questions and selected results; the Q4 and Q5 rounding differences remain documented above.

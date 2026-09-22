@@ -472,3 +472,7 @@ The final documents now use Questions 1-7 consistently. The Q2 growth/decline su
 ## README finalization (2026-09-22)
 
 The root README now states the objective, dataset and BigQuery tools, schema diagram, seven business questions, SQL techniques, selected results, limitations, repository structure, and reproduction steps. It explains the project-specific BigQuery identifiers and how the two-row Q2 percentage-change summary is selected. The BigQuery rerun remains open.
+
+## BigQuery rerun completed (2026-09-22)
+
+Reran the cleaned Q1-Q7 scripts in BigQuery and compared each result set with its saved CSV. The outputs matched. The Q4 category rounding and Q5 seller rounding differences documented in `docs/qa_report.md` remain differences from independent source calculations, not new differences between the rerun and saved outputs.
