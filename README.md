@@ -59,7 +59,7 @@ The [full findings](docs/findings.md) also cover Q2 and Q4.
 
 - September and October 2018 have only 56 and 3 eligible delivered orders. They are poor full-month comparisons; early low-volume months also produce unstable percentage changes.
 - Q6 counts review records, including multiple reviews on one order. Its delivery relationship is descriptive. Q7 measures repeat orders only within this dataset.
-- Q5 seller rounding and seven Q4 `.50` category totals differ slightly from exact source sums; see the [QA report](docs/qa_report.md). The cleaned SQL still needs a BigQuery rerun against the saved CSVs.
+- Q5 seller rounding and seven Q4 `.50` category totals differ slightly from exact source sums; see the [QA report](docs/qa_report.md). The cleaned SQL was rerun in BigQuery and verified against the saved CSV outputs.
 
 ## Repository structure
 
