@@ -1,0 +1,16 @@
+delivery_status,review_score,review_score_count,delivery_score_share_pct
+early,1,5851,6.6
+early,2,2335,2.63
+early,3,7086,7.99
+early,4,18033,20.34
+early,5,55348,62.43
+late,1,3444,53.74
+late,2,556,8.68
+late,3,697,10.88
+late,4,652,10.17
+late,5,1060,16.54
+on_time,1,110,8.52
+on_time,2,50,3.87
+on_time,3,178,13.79
+on_time,4,302,23.39
+on_time,5,651,50.43

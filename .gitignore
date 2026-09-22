@@ -1,0 +1,9 @@
+*.DS_Store
+
+# Raw source data is retained locally and loaded to BigQuery separately.
+data/*.csv
+data/raw data/*.csv
+
+# BigQuery credentials and local environment settings
+.env
+*.json
