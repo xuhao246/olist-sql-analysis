@@ -31,6 +31,7 @@ Revenue is `SUM(order_items.price)` for delivered orders with a customer deliver
 [Full question definitions](docs/business_questions.md)
 
 ## Selected findings
+The analysis highlights three major patterns: strong seller-revenue concentration, a clear association between late delivery and poor reviews, and very limited repeat purchasing.
 
 | Finding | Result |
 |---|---|
